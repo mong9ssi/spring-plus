@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,8 @@ public class AdminAccessLoggingAspect {
 
     private final HttpServletRequest request;
 
-    @Before("execution(* org.example.expert.domain.user.controller.UserAdminController.changeUserRole(..))")
+//    @Before("execution(* org.example.expert.domain.user.controller.UserAdminController.changeUserRole(..))")
+    @AfterReturning("execution(* org.example.expert.domain.user.controller.UserAdminController.changeUserRole(..))")
     public void logBeforeChangeUserRole(JoinPoint joinPoint) {
         String userId = String.valueOf(request.getAttribute("userId"));
         String requestUrl = request.getRequestURI();
